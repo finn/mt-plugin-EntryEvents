@@ -1,0 +1,35 @@
+id: EntryEvents
+name: EntryEvents
+key: entryevents
+description: Allows entries to have event metadata associated with them
+version: 0.1
+schema_version: 0.35
+author_name: Six Apart Ltd.
+author_link: http://www.sixapart.com
+
+settings:
+    show_events:
+        scope: blog
+        default: 0
+
+object_types:
+    entry_event: EntryEvent::EntryEvent
+
+callbacks:
+    MT::App::CMS::template_source.edit_entry: $EntryEvent::EntryEvent::CMS::source_edit_entry
+    MT::App::CMS::template_param.edit_entry: $EntryEvent::EntryEvent::CMS::param_edit_entry
+    cms_post_save.entry: $EntryEvent::EntryEvent::CMS::post_save_entry
+    MT::Entry::post_remove: $EntryEvent::EntryEvent::CMS::post_remove_entry
+    
+tags:
+    block:
+        Events: $EntryEvent::EntryEvent::Tags::all_events_container
+        FeaturedEvents: $EntryEvent::EntryEvent::Tags::featured_container
+        CategoryEvents: $EntryEvent::EntryEvent::Tags::category_container
+        EntryEvents: $EntryEvent::EntryEvent::Tags::entry_event_container
+        IfEventHasRecurrence?: $EntryEvent::EntryEvent::Tags::event_has_recurrence
+        IfEventFeatured?: $EntryEvent::EntryEvent::Tags::event_is_featured
+    function:
+        EventDate: $EntryEvent::EntryEvent::Tags::entry_event_date
+
+blog_config_template: blog_config.tmpl
