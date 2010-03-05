@@ -10,7 +10,7 @@
 		    <div id="event-calendar-content" class="calendar-content event-calendar pkg"></div>
         <div id="event_date-field" class="field field-left-label pkg ">
 		    <div class="field-inner">
-   		        <div class="field-header"><label for="event-calendar-date-input">Date</label></div> <div class="field-content"><input type="text" name="event-date" id="event-calendar-date-input" size="10" value="<mt:var name="event_date">"></div>
+   		        <div class="field-header"><label for="event-calendar-date-input">Date</label></div> <div class="field-content"><span id="event-date-visible"><mt:if name="event_date"><mt:var name="event_date"><mt:else>choose a date above</mt:if></span><input type="hidden" name="event-date" id="event-calendar-date-input" value="<mt:var name="event_date">"></div><br clear="all" />
 				<div class="field-header"><label for="event-calendar-time-input">Time</label></div> <div class="field-content"> 
 					<select name="event-hour" id="event-hour">
 						<option value="12">12</option>
@@ -97,9 +97,8 @@
 						document.getElementById('event-minute').selectedIndex = <mt:if name="event_minute"><mt:var name="event_minute"><mt:else>0</mt:if>;
 						document.getElementById('event-ampm').selectedIndex = ('<mt:var name="event_ampm">' == 'am')?0:1;
 					</script>
-					<input type="hidden" id="event-calendar-time-input" name="event-time" size="10" value="" /></div>
+					<input type="hidden" id="event-calendar-time-input" name="event-time" size="10" value="" /></div><br clear="all" />
 				<div class="field-header"><label for="featured">Featured</label></div><div class="field-content"><input type="checkbox" id="featured" name="featured" <mt:if var="featured">checked</mt:if> value="1"></div><br clear="all"/>
-				<div class="field-header"><label for="sponsored">KCET Sponsored</label></div><div class="field-content"><input type="checkbox" id="sponsored" name="sponsored" <mt:if var="sponsored">checked</mt:if> value="1"></div><br clear="all"/>
 				<div class="field-header"><label for="has_recurrence">Recurring?</label></div><div class="field-content"><input type="checkbox"<mt:unless name="event_date">disabled="true"</mt:unless> <mt:if name="has_recurrence">checked</mt:if> name="has_recurrence" id="has_recurrence" onchange="if(this.checked){show('event-recurrence');}else{hide('event-recurrence')}; event_calendar.highlightRecurrence();"> </div><br clear="all"/>
 					<div id="event-recurrence"<mt:unless name="has_recurrence"> class="hidden"</mt:unless>>
 
@@ -157,13 +156,13 @@
 							<div class="field-content">Every <input type="text" name="yearly-interval" value="<mt:if name="yearly_interval"><mt:var name="yearly_interval"><mt:else>1</mt:if>" size="1"> years</div>
 						</div>
 					</div>
-					<div class="field-header"><label for="recurrence_end">Until</label></div> <div class="field-content"><input name="recurrence_end" id="recurrence_end" value="<mt:if name="until"><mt:var name="until"></mt:if>" size="10"> </div>
+					<div class="field-header"><label for="recurrence_end">Until</label></div> <div class="field-content"><input name="recurrence_end" id="recurrence_end" value="<mt:if name="until"><mt:var name="until"></mt:if>" size="10" onchange="event_calendar.highlightRecurrence()"> </div>
 					</div>
 		    </div>
 		</div>
 	</div>
 		<div id="show-event-calendar" <mt:if name="event_date">class="hidden"</mt:if>><a href="javascript:void(0)" onclick="show('event-calendar'); hide('show-event-calendar');document.getElementById('has_date').value=1;">Click to add event date</a></div>
-		<input type="hidden" name="has_date" value="0">
+		<input type="hidden" name="has_date" id="has_date" value="<mt:if name="event_date">1<mt:else>0</mt:if>">
 		<script type="text/javascript">
 		// get day of year function
 		Date.prototype.getDOY = function() {
@@ -182,17 +181,27 @@
 				return 32 - new Date(this.getFullYear(), this.getMonth(), 32).getDate();
 		}
 		
+		function validateDate(date) {
+			// date must match format MM/DD/YYYY
+			if (!date.match(/\d\d\/\d\d\/\d\d\d\d/)) {
+				alert("Please enter an event date in the format MM/DD/YYYY or select a date from the calendar above.");
+				document.getElementById('event-calendar-date-input').focus();
+			}
+		}
+		
 		var custom_showing = 'custom_<mt:if name="custom_frequency"><mt:var name="custom_frequency"><mt:else>monthly</mt:if>';
 		var days = new Array('su','mo','tu','we','th','fr','sa');
         event_calendar = new MT.App.Calendar( "event-calendar", "calendar" );
 		event_calendar.dateObject = new Date(<mt:if name="event_date">'<mt:var name="event_date">'</mt:if>);
 		event_calendar.currentDateObject = event_calendar.dateObject;
 		event_calendar.selectedDateObject<mt:if name="event_date"> = new Date('<mt:var name="event_date">')</mt:if>;
-		
-		d = new Date(event_calendar.currentDateObject);
-		d.setFullYear(d.getFullYear()+1);
-		// set recurrence stuff
-		document.getElementById('recurrence_end').value = d.toLocaleDateString();
+
+		if (document.getElementById('recurrence_end').value == '') {
+			// set recurrence stuff
+			d = new Date(event_calendar.currentDateObject);
+			d.setFullYear(d.getFullYear()+1);
+			document.getElementById('recurrence_end').value = d.toLocaleDateString();
+		}
 		
     	event_calendar.render();
 		event_calendar.isOpen = true;
@@ -340,6 +349,23 @@
 						break;
 				}
 			}
+			
+			var end = new Date(document.getElementById('recurrence_end').value);
+			var endMonth = false;
+			var endDay = end.getDate();
+			if (end.getMonth() == this.selectedDateObject.getMonth() && end.getFullYear() == this.selectedDateObject.getFullYear()) {
+				endMonth = true;
+			}
+			
+			if (endMonth) { // recurrence ends this month
+				var es = this.contentElement.getElementsByTagName( 'li' );
+				for (x=0;x<es.length;x++) {
+					if (es[x].className.match(/day-/) && es[x].className.match(/day-(\d+)/)[1] > endDay) {
+						DOM.removeClassName( es[ x ], "recurrence" );
+					}
+				}
+			}
+		
 		}
 		event_calendar.eventClick = function( event ) { /* overriding this function */
 	        if( !this.isOpen ) // This keeps unopened calendars from hearing the event and breaking (Case 33303).
@@ -422,16 +448,19 @@
 	                    this.time( this.timeElement.value );
 	                }
 					document.getElementById('event-calendar-date-input').value = this.dateObject.toLocaleDateString();
+					document.getElementById('event-date-visible').innerHTML = this.dateObject.toLocaleDateString();
 					this.selectedDateObject = this.dateObject.clone();
 					// if we're changing the day, update the recurrence bits
 					if (document.getElementById('has_recurrence').checked) {
 						this.highlightRecurrence();
 					}
-					d = new Date(event_calendar.dateObject);
-					d.setFullYear(d.getFullYear()+1);
 					// enable recurrence stuff
 					document.getElementById('has_recurrence').disabled = false;
-					document.getElementById('recurrence_end').value = d.toLocaleDateString();
+					if (document.getElementById('recurrence_end').value == '') {
+						d = new Date(event_calendar.dateObject);
+						d.setFullYear(d.getFullYear()+1);
+						document.getElementById('recurrence_end').value = d.toLocaleDateString();
+					}
 					// set the day/week for our monthly custom recurrence
 					document.getElementById('monthly-interval').selectedIndex = Math.floor((this.dateObject.getDate()-1) / 7);
 
