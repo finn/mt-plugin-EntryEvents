@@ -81,6 +81,29 @@ sub post_save_entry {
 	my $featured = $app->param('featured');
 
 	my ($month, $day, $year) = split('/', $date);
+	
+	# we need to do some validation here
+	if ($month < 1 || $month > 12) {
+		return $app->error("The 'month' parameter for an Event date must be between 1 and 12.");
+	}
+	
+	if ($day < 1 || $day > 31) {
+		return $app->error("The 'day' parameter for an Event date must be between 1 and 31.");
+	}
+	
+	if ($year < 0) {
+		return $app->error("The 'year' parameter for an Event date must be greater than 0.")
+	}
+	
+	if ($hour < 1 || $hour > 12) {
+		return $app->error("The 'hour' parameter for an Event must be between 1 and 12.");
+	}
+	
+	if ($minute < 0 || $minute > 60) {
+		return $app->error("The 'minute' parameter for an Event must be between 0 and 60.");
+	}
+	
+	
 
 	if ($ampm eq 'pm' && $hour < 12) {
 		$hour += 12;

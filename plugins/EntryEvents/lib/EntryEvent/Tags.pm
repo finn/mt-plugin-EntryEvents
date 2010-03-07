@@ -119,8 +119,7 @@ sub all_events_container { # a container to return all events in a given time pe
 	# now load the explicit set of events that occur in our defined window that we have not already picked up
 	my $ts_start = epoch2ts(undef, $start->epoch);
 	my $ts_end = (defined $end)?epoch2ts(undef, $end->epoch):undef;
-
-	my @events_set = EntryEvent::EntryEvent->load({ id => { not => \@seen_ids }, event_date => [ $ts_start, $ts_end ] }, { range => { event_date => 1 } });
+	my @events_set = EntryEvent::EntryEvent->load({ (scalar @seen_ids)?( id => { not => \@seen_ids } ):( ), event_date => [ $ts_start, $ts_end ] }, { range => { event_date => 1 } });
 	for my $e_set (@events_set) {
 		my $dt = ts2datetime($e_set->event_date);
 		$dt->{event} = $e_set;
@@ -187,6 +186,7 @@ sub entry_event_container { # a container that will return all occurrences of th
 		$dt->{event} = $event;
 		push @events, $dt;
 	}
+	@events = sort { $a->{event}->get_next_occurrence(epoch2ts(undef, $start->epoch), $a) <=> $b->{event}->get_next_occurrence(epoch2ts(undef, $start->epoch), $b) } @events;
 	return build_event_template($ctx, $args, $cond, \@events);
 }
 
@@ -229,7 +229,7 @@ sub featured_container { # just find featured events
 			push @events, $dt;
 		}
 	}
-	
+	@events = sort { $a->{event}->get_next_occurrence(epoch2ts(undef, $start->epoch), $a) <=> $b->{event}->get_next_occurrence(epoch2ts(undef, $start->epoch), $b) } @events;
 	return build_event_template($ctx, $args, $cond, \@events);
 	
 }
@@ -285,7 +285,6 @@ sub category_container { # a container to find events in a specific category
 	}
 	
 	my @entry_ids = map { $_->id } @entries;
-
 	my $event_iter = EntryEvent::EntryEvent->load_iter({ entry_id => \@entry_ids, ($featured)? ( featured => 1 ):() });
 	my $check_set = DateTime::Span->from_datetimes( start => $start, ($end)?( end => $end ):());
 	while (my $event = $event_iter->()) {
@@ -317,10 +316,16 @@ sub category_container { # a container to find events in a specific category
 			}
 		} else { # this is just one event, need to just push that into the array
 			my $dt = ts2datetime($event->event_date);
-			$dt->{event} = $event;
-			push @events, $dt;
+			if (DateTime->compare($dt, $start) >= 0) {
+				$dt->{event} = $event;
+				push @events, $dt;
+			}
 		}
 	}
+
+    my $ts = epoch2ts(undef, $start->epoch);
+	# sort by occurrence
+	@events = sort { $a->{event}->get_next_occurrence($ts, $a) <=> $b->{event}->get_next_occurrence($ts, $b) } @events;
 	return build_event_template($ctx, $args, $cond, \@events);
 	
 }

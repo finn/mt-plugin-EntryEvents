@@ -181,6 +181,23 @@
 				return 32 - new Date(this.getFullYear(), this.getMonth(), 32).getDate();
 		}
 		
+		function format_for_input(date) {
+			month = date.getMonth()+1;
+			year = date.getFullYear();
+			day = date.getDate();
+			
+			if (month < 10) {
+				month = "0" + month;
+			}
+			
+			if (day < 10) {
+				day = "0" + day;
+			}
+			
+			datestr = month + "/" + day + "/" + year;
+			return datestr;
+		}
+		
 		function validateDate(date) {
 			// date must match format MM/DD/YYYY
 			if (!date.match(/\d\d\/\d\d\/\d\d\d\d/)) {
@@ -200,7 +217,7 @@
 			// set recurrence stuff
 			d = new Date(event_calendar.currentDateObject);
 			d.setFullYear(d.getFullYear()+1);
-			document.getElementById('recurrence_end').value = d.toLocaleDateString();
+			document.getElementById('recurrence_end').value = format_for_input(d);
 		}
 		
     	event_calendar.render();
@@ -447,8 +464,8 @@
 	                    this.timeElement.value = hours + ":" + minutes + ":" + seconds;
 	                    this.time( this.timeElement.value );
 	                }
-					document.getElementById('event-calendar-date-input').value = this.dateObject.toLocaleDateString();
-					document.getElementById('event-date-visible').innerHTML = this.dateObject.toLocaleDateString();
+					document.getElementById('event-calendar-date-input').value = format_for_input(this.dateObject);
+					document.getElementById('event-date-visible').innerHTML = format_for_input(this.dateObject);
 					this.selectedDateObject = this.dateObject.clone();
 					// if we're changing the day, update the recurrence bits
 					if (document.getElementById('has_recurrence').checked) {
@@ -459,7 +476,7 @@
 					if (document.getElementById('recurrence_end').value == '') {
 						d = new Date(event_calendar.dateObject);
 						d.setFullYear(d.getFullYear()+1);
-						document.getElementById('recurrence_end').value = d.toLocaleDateString();
+						document.getElementById('recurrence_end').value = format_for_input(d);
 					}
 					// set the day/week for our monthly custom recurrence
 					document.getElementById('monthly-interval').selectedIndex = Math.floor((this.dateObject.getDate()-1) / 7);
