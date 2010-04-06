@@ -20,7 +20,7 @@ callbacks:
     MT::App::CMS::template_param.edit_entry: $EntryEvent::EntryEvent::CMS::param_edit_entry
     cms_post_save.entry: $EntryEvent::EntryEvent::CMS::post_save_entry
     MT::Entry::post_remove: $EntryEvent::EntryEvent::CMS::post_remove_entry
-    
+
 tags:
     block:
         Events: $EntryEvent::EntryEvent::Tags::all_events_container

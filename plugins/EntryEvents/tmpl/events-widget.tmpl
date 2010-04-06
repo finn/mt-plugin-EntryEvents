@@ -1,504 +1,504 @@
 <div id="event-field">
-	<mtapp:widget
-		id="entry-event-widget"
-		label="<__trans phrase="Events">">
-		<style type="text/css">
-			.event-calendar{background:white none repeat scroll 0%;padding:6px;width:160px; margin: 0px auto;}
-			.calendar-days li.recurrence { background-color:#f93; }
-		</style>
-		<div id="event-calendar" class="<mt:unless name="event_date">hidden</mt:unless>">
-		    <div id="event-calendar-content" class="calendar-content event-calendar pkg"></div>
+    <mtapp:widget
+        id="entry-event-widget"
+        label="<__trans phrase="Events">">
+        <style type="text/css">
+            .event-calendar{background:white none repeat scroll 0%;padding:6px;width:160px; margin: 0px auto;}
+            .calendar-days li.recurrence { background-color:#f93; }
+        </style>
+        <div id="event-calendar" class="<mt:unless name="event_date">hidden</mt:unless>">
+            <div id="event-calendar-content" class="calendar-content event-calendar pkg"></div>
         <div id="event_date-field" class="field field-left-label pkg ">
-		    <div class="field-inner">
-   		        <div class="field-header"><label for="event-calendar-date-input">Date</label></div> <div class="field-content"><span id="event-date-visible"><mt:if name="event_date"><mt:var name="event_date"><mt:else>choose a date above</mt:if></span><input type="hidden" name="event-date" id="event-calendar-date-input" value="<mt:var name="event_date">"></div><br clear="all" />
-				<div class="field-header"><label for="event-calendar-time-input">Time</label></div> <div class="field-content"> 
-					<select name="event-hour" id="event-hour">
-						<option value="12">12</option>
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-						<option value="5">5</option>
-						<option value="6">6</option>
-						<option value="7">7</option>
-						<option value="8">8</option>
-						<option value="9">9</option>
-						<option value="10">10</option>
-						<option value="11">11</option>
-					</select>
-					<select name="event-minute" id="event-minute">
-						<option value="00">00</option>
-						<option value="01">01</option>
-						<option value="02">02</option>
-						<option value="03">03</option>
-						<option value="04">04</option>
-						<option value="05">05</option>
-						<option value="06">06</option>
-						<option value="07">07</option>
-						<option value="08">08</option>
-						<option value="09">09</option>
-						<option value="10">10</option>
-						<option value="11">11</option>
-						<option value="12">12</option>
-						<option value="13">13</option>
-						<option value="14">14</option>
-						<option value="15">15</option>
-						<option value="16">16</option>
-						<option value="17">17</option>
-						<option value="18">18</option>
-						<option value="19">19</option>
-						<option value="20">20</option>
-						<option value="21">21</option>
-						<option value="22">22</option>
-						<option value="23">23</option>
-						<option value="24">24</option>
-						<option value="25">25</option>
-						<option value="26">26</option>
-						<option value="27">27</option>
-						<option value="28">28</option>
-						<option value="29">29</option>
-						<option value="30">30</option>
-						<option value="31">31</option>
-						<option value="32">32</option>
-						<option value="33">33</option>
-						<option value="34">34</option>
-						<option value="35">35</option>
-						<option value="36">36</option>
-						<option value="37">37</option>
-						<option value="38">38</option>
-						<option value="39">39</option>
-						<option value="40">40</option>
-						<option value="41">41</option>
-						<option value="42">42</option>
-						<option value="43">43</option>
-						<option value="44">44</option>
-						<option value="45">45</option>
-						<option value="46">46</option>
-						<option value="47">47</option>
-						<option value="48">48</option>
-						<option value="49">49</option>
-						<option value="50">50</option>
-						<option value="51">51</option>
-						<option value="52">52</option>
-						<option value="53">53</option>
-						<option value="54">54</option>
-						<option value="55">55</option>
-						<option value="56">56</option>
-						<option value="57">57</option>
-						<option value="58">58</option>
-						<option value="59">59</option>
-					</select>
-					<select name="ampm" id="event-ampm">
-						<option value="am">am</option>
-						<option value="pm">pm</option>
-					</select>
-					<script type="text/javascript">
-						document.getElementById('event-hour').selectedIndex = <mt:if name="event_hour">(<mt:var name="event_hour">==12)?0:<mt:var name="event_hour"><mt:else>0</mt:if>;
-						document.getElementById('event-minute').selectedIndex = <mt:if name="event_minute"><mt:var name="event_minute"><mt:else>0</mt:if>;
-						document.getElementById('event-ampm').selectedIndex = ('<mt:var name="event_ampm">' == 'am')?0:1;
-					</script>
-					<input type="hidden" id="event-calendar-time-input" name="event-time" size="10" value="" /></div><br clear="all" />
-				<div class="field-header"><label for="featured">Featured</label></div><div class="field-content"><input type="checkbox" id="featured" name="featured" <mt:if var="featured">checked</mt:if> value="1"></div><br clear="all"/>
-				<div class="field-header"><label for="has_recurrence">Recurring?</label></div><div class="field-content"><input type="checkbox"<mt:unless name="event_date">disabled="true"</mt:unless> <mt:if name="has_recurrence">checked</mt:if> name="has_recurrence" id="has_recurrence" onchange="if(this.checked){show('event-recurrence');}else{hide('event-recurrence')}; event_calendar.highlightRecurrence();"> </div><br clear="all"/>
-					<div id="event-recurrence"<mt:unless name="has_recurrence"> class="hidden"</mt:unless>>
+            <div class="field-inner">
+                <div class="field-header"><label for="event-calendar-date-input">Date</label></div> <div class="field-content"><span id="event-date-visible"><mt:if name="event_date"><mt:var name="event_date"><mt:else>choose a date above</mt:if></span><input type="hidden" name="event-date" id="event-calendar-date-input" value="<mt:var name="event_date">"></div><br clear="all" />
+                <div class="field-header"><label for="event-calendar-time-input">Time</label></div> <div class="field-content">
+                    <select name="event-hour" id="event-hour">
+                        <option value="12">12</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                    </select>
+                    <select name="event-minute" id="event-minute">
+                        <option value="00">00</option>
+                        <option value="01">01</option>
+                        <option value="02">02</option>
+                        <option value="03">03</option>
+                        <option value="04">04</option>
+                        <option value="05">05</option>
+                        <option value="06">06</option>
+                        <option value="07">07</option>
+                        <option value="08">08</option>
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                        <option value="24">24</option>
+                        <option value="25">25</option>
+                        <option value="26">26</option>
+                        <option value="27">27</option>
+                        <option value="28">28</option>
+                        <option value="29">29</option>
+                        <option value="30">30</option>
+                        <option value="31">31</option>
+                        <option value="32">32</option>
+                        <option value="33">33</option>
+                        <option value="34">34</option>
+                        <option value="35">35</option>
+                        <option value="36">36</option>
+                        <option value="37">37</option>
+                        <option value="38">38</option>
+                        <option value="39">39</option>
+                        <option value="40">40</option>
+                        <option value="41">41</option>
+                        <option value="42">42</option>
+                        <option value="43">43</option>
+                        <option value="44">44</option>
+                        <option value="45">45</option>
+                        <option value="46">46</option>
+                        <option value="47">47</option>
+                        <option value="48">48</option>
+                        <option value="49">49</option>
+                        <option value="50">50</option>
+                        <option value="51">51</option>
+                        <option value="52">52</option>
+                        <option value="53">53</option>
+                        <option value="54">54</option>
+                        <option value="55">55</option>
+                        <option value="56">56</option>
+                        <option value="57">57</option>
+                        <option value="58">58</option>
+                        <option value="59">59</option>
+                    </select>
+                    <select name="ampm" id="event-ampm">
+                        <option value="am">am</option>
+                        <option value="pm">pm</option>
+                    </select>
+                    <script type="text/javascript">
+                        document.getElementById('event-hour').selectedIndex = <mt:if name="event_hour">(<mt:var name="event_hour">==12)?0:<mt:var name="event_hour"><mt:else>0</mt:if>;
+                        document.getElementById('event-minute').selectedIndex = <mt:if name="event_minute"><mt:var name="event_minute"><mt:else>0</mt:if>;
+                        document.getElementById('event-ampm').selectedIndex = ('<mt:var name="event_ampm">' == 'am')?0:1;
+                    </script>
+                    <input type="hidden" id="event-calendar-time-input" name="event-time" size="10" value="" /></div><br clear="all" />
+                <div class="field-header"><label for="featured">Featured</label></div><div class="field-content"><input type="checkbox" id="featured" name="featured" <mt:if var="featured">checked</mt:if> value="1"></div><br clear="all"/>
+                <div class="field-header"><label for="has_recurrence">Recurring?</label></div><div class="field-content"><input type="checkbox"<mt:unless name="event_date">disabled="true"</mt:unless> <mt:if name="has_recurrence">checked</mt:if> name="has_recurrence" id="has_recurrence" onchange="if(this.checked){show('event-recurrence');}else{hide('event-recurrence')}; event_calendar.highlightRecurrence();"> </div><br clear="all"/>
+                    <div id="event-recurrence"<mt:unless name="has_recurrence"> class="hidden"</mt:unless>>
 
-					<div class="field-header"><label for="recurrence_interval">Interval</label></div> <div class="field-content"><select name="interval" id="recurrence_interval" onchange="if(this.options[this.selectedIndex].value == 'custom'){show('custom-options')}else{hide('custom-options')}; event_calendar.highlightRecurrence();">
-						<option value="daily"<mt:if var="frequency" eq="daily"> selected</mt:if>>Every day</option>
-						<option value="weekly"<mt:if var="frequency" eq="weekly"> selected</mt:if>>Every week</option>
-						<option value="monthly"<mt:if var="frequency" eq="monthly"> selected</mt:if>>Every month</option>
-						<option value="yearly"<mt:if var="frequency" eq="yearly"> selected</mt:if>>Every year</option>
-						<option value="custom"<mt:if var="frequency" eq="custom"> selected</mt:if>>Custom...</option>
-					</select></div>
-					<div id="custom-options" <mt:unless var="frequency" eq="custom">class="hidden"</mt:unless>>
-						<div class="field-header"><label for="custom_frequency">Frequency</div> <div class="field-content">
-						<select name="custom-frequency" id="custom_frequency" onchange="hide(custom_showing);custom_showing='custom_' + this.options[this.selectedIndex].value;show(custom_showing); event_calendar.highlightRecurrence();">
-							<option value="daily" <mt:if name="custom_frequency" eq="daily">selected</mt:if>>Daily</option>
-							<option value="weekly" <mt:if name="custom_frequency" eq="weekly">selected</mt:if>>Weekly</option>
-							<option value="monthly" <mt:if name="custom_frequency" eq="monthly">selected</mt:if><mt:unless name="custom_frequency">selected</mt:unless>>Monthly</option>
-							<option value="yearly" <mt:if name="custom_frequency" eq="yearly">selected</mt:if>>Yearly</option>
-						</select>
-						</div>
-						<div id="custom_daily"<mt:unless name="custom_frequency" eq="daily">class="hidden"</mt:unless>>
-							<div class="field-content">Every <input type="text" name="daily-interval" id="daily_interval" value="<mt:if name="daily_interval"><mt:var name="daily_interval"><mt:else>1</mt:if>" size="1" onchange="event_calendar.highlightRecurrence();"> days</div>
-						</div>
-						<div id="custom_weekly" <mt:unless name="custom_frequency" eq="weekly">class="hidden"</mt:unless>>
-							<div class="field-content">
-							Every <input type="text" name="weekly-interval" id="weekly_interval" value="<mt:if name="weekly_interval"><mt:var name="weekly_interval"><mt:else>1</mt:if>" size="1" onchange="event_calendar.highlightRecurrence();"> weeks on<br />
-							<input type="checkbox" name="weekly-day" id="weekly-su" value="su" <mt:if name="weekly_day_su">checked</mt:if> onchange="event_calendar.highlightRecurrence();">Sunday<br/>
-							<input type="checkbox" name="weekly-day" id="weekly-mo" value="mo" <mt:if name="weekly_day_mo">checked</mt:if> onchange="event_calendar.highlightRecurrence();">Monday<br/>
-							<input type="checkbox" name="weekly-day" id="weekly-tu" value="tu" <mt:if name="weekly_day_tu">checked</mt:if> onchange="event_calendar.highlightRecurrence();">Tuesday<br/>
-							<input type="checkbox" name="weekly-day" id="weekly-we" value="we" <mt:if name="weekly_day_we">checked</mt:if> onchange="event_calendar.highlightRecurrence();">Wednesday<br/>
-							<input type="checkbox" name="weekly-day" id="weekly-th" value="th" <mt:if name="weekly_day_th">checked</mt:if> onchange="event_calendar.highlightRecurrence();">Thursday<br/>
-							<input type="checkbox" name="weekly-day" id="weekly-fr" value="fr" <mt:if name="weekly_day_fr">checked</mt:if> onchange="event_calendar.highlightRecurrence();">Friday<br/>
-							<input type="checkbox" name="weekly-day" id="weekly-sa" value="sa" <mt:if name="weekly_day_sa">checked</mt:if> onchange="event_calendar.highlightRecurrence();">Saturday<br/>
-							</div>
-						</div>
-						<div id="custom_monthly" <mt:if name="custom_frequency"><mt:unless name="custom_frequency" eq="monthly">class="hidden"</mt:unless></mt:if>>
-							On the<br /> 
-							<select name="monthly-interval" id="monthly-interval" onchange="event_calendar.highlightRecurrence();">
-								<option value="1" <mt:if name="monthly_interval" eq="1">selected</mt:if>>First</option>
-								<option value="2" <mt:if name="monthly_interval" eq="2">selected</mt:if>>Second</option>
-								<option value="3" <mt:if name="monthly_interval" eq="3">selected</mt:if>>Third</option>
-								<option value="4" <mt:if name="monthly_interval" eq="4">selected</mt:if>>Fourth</option>
-								<option value="-1" <mt:if name="monthly_interval" eq="-1">selected</mt:if>>Last</option>
-							</select>
-							<select name="monthly-day" id="monthly-day" onchange="event_calendar.highlightRecurrence();">
-								<option value="su" <mt:if name="monthly_day" eq="su">selected</mt:if>>Sunday</option>
-								<option value="mo" <mt:if name="monthly_day" eq="mo">selected</mt:if>>Monday</option>
-								<option value="tu" <mt:if name="monthly_day" eq="tu">selected</mt:if>>Tuesday</option>
-								<option value="we" <mt:if name="monthly_day" eq="we">selected</mt:if>>Wednesday</option>
-								<option value="th" <mt:if name="monthly_day" eq="th">selected</mt:if>>Thursday</option>
-								<option value="fr" <mt:if name="monthly_day" eq="fr">selected</mt:if>>Friday</option>
-								<option value="sa" <mt:if name="monthly_day" eq="sa">selected</mt:if>>Saturday</option>
-							</select>
-						</div>
-						<div id="custom_yearly" <mt:unless name="custom_frequency" eq="yearly">class="hidden"</mt:unless>>
-							<div class="field-content">Every <input type="text" name="yearly-interval" value="<mt:if name="yearly_interval"><mt:var name="yearly_interval"><mt:else>1</mt:if>" size="1"> years</div>
-						</div>
-					</div>
-					<div class="field-header"><label for="recurrence_end">Until</label></div> <div class="field-content"><input name="recurrence_end" id="recurrence_end" value="<mt:if name="until"><mt:var name="until"></mt:if>" size="10" onchange="event_calendar.highlightRecurrence()"> </div>
-					</div>
-		    </div>
-		</div>
-	</div>
-		<div id="show-event-calendar" <mt:if name="event_date">class="hidden"</mt:if>><a href="javascript:void(0)" onclick="show('event-calendar'); hide('show-event-calendar');document.getElementById('has_date').value=1;">Click to add event date</a></div>
-		<input type="hidden" name="has_date" id="has_date" value="<mt:if name="event_date">1<mt:else>0</mt:if>">
-		<script type="text/javascript">
-		// get day of year function
-		Date.prototype.getDOY = function() {
-			var onejan = new Date(this.getFullYear(),0,1);
-			return Math.ceil((this - onejan) / 86400000);
-		}
-		
-		// get week of year function
-		Date.prototype.getWeek = function() {
-			var onejan = new Date(this.getFullYear(),0,1);
-			return Math.ceil((((this - onejan) / 86400000) + onejan.getDay()+1)/7);
-		}
+                    <div class="field-header"><label for="recurrence_interval">Interval</label></div> <div class="field-content"><select name="interval" id="recurrence_interval" onchange="if(this.options[this.selectedIndex].value == 'custom'){show('custom-options')}else{hide('custom-options')}; event_calendar.highlightRecurrence();">
+                        <option value="daily"<mt:if var="frequency" eq="daily"> selected</mt:if>>Every day</option>
+                        <option value="weekly"<mt:if var="frequency" eq="weekly"> selected</mt:if>>Every week</option>
+                        <option value="monthly"<mt:if var="frequency" eq="monthly"> selected</mt:if>>Every month</option>
+                        <option value="yearly"<mt:if var="frequency" eq="yearly"> selected</mt:if>>Every year</option>
+                        <option value="custom"<mt:if var="frequency" eq="custom"> selected</mt:if>>Custom...</option>
+                    </select></div>
+                    <div id="custom-options" <mt:unless var="frequency" eq="custom">class="hidden"</mt:unless>>
+                        <div class="field-header"><label for="custom_frequency">Frequency</div> <div class="field-content">
+                        <select name="custom-frequency" id="custom_frequency" onchange="hide(custom_showing);custom_showing='custom_' + this.options[this.selectedIndex].value;show(custom_showing); event_calendar.highlightRecurrence();">
+                            <option value="daily" <mt:if name="custom_frequency" eq="daily">selected</mt:if>>Daily</option>
+                            <option value="weekly" <mt:if name="custom_frequency" eq="weekly">selected</mt:if>>Weekly</option>
+                            <option value="monthly" <mt:if name="custom_frequency" eq="monthly">selected</mt:if><mt:unless name="custom_frequency">selected</mt:unless>>Monthly</option>
+                            <option value="yearly" <mt:if name="custom_frequency" eq="yearly">selected</mt:if>>Yearly</option>
+                        </select>
+                        </div>
+                        <div id="custom_daily"<mt:unless name="custom_frequency" eq="daily">class="hidden"</mt:unless>>
+                            <div class="field-content">Every <input type="text" name="daily-interval" id="daily_interval" value="<mt:if name="daily_interval"><mt:var name="daily_interval"><mt:else>1</mt:if>" size="1" onchange="event_calendar.highlightRecurrence();"> days</div>
+                        </div>
+                        <div id="custom_weekly" <mt:unless name="custom_frequency" eq="weekly">class="hidden"</mt:unless>>
+                            <div class="field-content">
+                            Every <input type="text" name="weekly-interval" id="weekly_interval" value="<mt:if name="weekly_interval"><mt:var name="weekly_interval"><mt:else>1</mt:if>" size="1" onchange="event_calendar.highlightRecurrence();"> weeks on<br />
+                            <input type="checkbox" name="weekly-day" id="weekly-su" value="su" <mt:if name="weekly_day_su">checked</mt:if> onchange="event_calendar.highlightRecurrence();">Sunday<br/>
+                            <input type="checkbox" name="weekly-day" id="weekly-mo" value="mo" <mt:if name="weekly_day_mo">checked</mt:if> onchange="event_calendar.highlightRecurrence();">Monday<br/>
+                            <input type="checkbox" name="weekly-day" id="weekly-tu" value="tu" <mt:if name="weekly_day_tu">checked</mt:if> onchange="event_calendar.highlightRecurrence();">Tuesday<br/>
+                            <input type="checkbox" name="weekly-day" id="weekly-we" value="we" <mt:if name="weekly_day_we">checked</mt:if> onchange="event_calendar.highlightRecurrence();">Wednesday<br/>
+                            <input type="checkbox" name="weekly-day" id="weekly-th" value="th" <mt:if name="weekly_day_th">checked</mt:if> onchange="event_calendar.highlightRecurrence();">Thursday<br/>
+                            <input type="checkbox" name="weekly-day" id="weekly-fr" value="fr" <mt:if name="weekly_day_fr">checked</mt:if> onchange="event_calendar.highlightRecurrence();">Friday<br/>
+                            <input type="checkbox" name="weekly-day" id="weekly-sa" value="sa" <mt:if name="weekly_day_sa">checked</mt:if> onchange="event_calendar.highlightRecurrence();">Saturday<br/>
+                            </div>
+                        </div>
+                        <div id="custom_monthly" <mt:if name="custom_frequency"><mt:unless name="custom_frequency" eq="monthly">class="hidden"</mt:unless></mt:if>>
+                            On the<br />
+                            <select name="monthly-interval" id="monthly-interval" onchange="event_calendar.highlightRecurrence();">
+                                <option value="1" <mt:if name="monthly_interval" eq="1">selected</mt:if>>First</option>
+                                <option value="2" <mt:if name="monthly_interval" eq="2">selected</mt:if>>Second</option>
+                                <option value="3" <mt:if name="monthly_interval" eq="3">selected</mt:if>>Third</option>
+                                <option value="4" <mt:if name="monthly_interval" eq="4">selected</mt:if>>Fourth</option>
+                                <option value="-1" <mt:if name="monthly_interval" eq="-1">selected</mt:if>>Last</option>
+                            </select>
+                            <select name="monthly-day" id="monthly-day" onchange="event_calendar.highlightRecurrence();">
+                                <option value="su" <mt:if name="monthly_day" eq="su">selected</mt:if>>Sunday</option>
+                                <option value="mo" <mt:if name="monthly_day" eq="mo">selected</mt:if>>Monday</option>
+                                <option value="tu" <mt:if name="monthly_day" eq="tu">selected</mt:if>>Tuesday</option>
+                                <option value="we" <mt:if name="monthly_day" eq="we">selected</mt:if>>Wednesday</option>
+                                <option value="th" <mt:if name="monthly_day" eq="th">selected</mt:if>>Thursday</option>
+                                <option value="fr" <mt:if name="monthly_day" eq="fr">selected</mt:if>>Friday</option>
+                                <option value="sa" <mt:if name="monthly_day" eq="sa">selected</mt:if>>Saturday</option>
+                            </select>
+                        </div>
+                        <div id="custom_yearly" <mt:unless name="custom_frequency" eq="yearly">class="hidden"</mt:unless>>
+                            <div class="field-content">Every <input type="text" name="yearly-interval" value="<mt:if name="yearly_interval"><mt:var name="yearly_interval"><mt:else>1</mt:if>" size="1"> years</div>
+                        </div>
+                    </div>
+                    <div class="field-header"><label for="recurrence_end">Until</label></div> <div class="field-content"><input name="recurrence_end" id="recurrence_end" value="<mt:if name="until"><mt:var name="until"></mt:if>" size="10" onchange="event_calendar.highlightRecurrence()"> </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+        <div id="show-event-calendar" <mt:if name="event_date">class="hidden"</mt:if>><a href="javascript:void(0)" onclick="show('event-calendar'); hide('show-event-calendar');document.getElementById('has_date').value=1;">Click to add event date</a></div>
+        <input type="hidden" name="has_date" id="has_date" value="<mt:if name="event_date">1<mt:else>0</mt:if>">
+        <script type="text/javascript">
+        // get day of year function
+        Date.prototype.getDOY = function() {
+            var onejan = new Date(this.getFullYear(),0,1);
+            return Math.ceil((this - onejan) / 86400000);
+        }
 
-		// get the number of days in this month
-		Date.prototype.daysInMonth = function() {
-				return 32 - new Date(this.getFullYear(), this.getMonth(), 32).getDate();
-		}
-		
-		function format_for_input(date) {
-			month = date.getMonth()+1;
-			year = date.getFullYear();
-			day = date.getDate();
-			
-			if (month < 10) {
-				month = "0" + month;
-			}
-			
-			if (day < 10) {
-				day = "0" + day;
-			}
-			
-			datestr = month + "/" + day + "/" + year;
-			return datestr;
-		}
-		
-		function validateDate(date) {
-			// date must match format MM/DD/YYYY
-			if (!date.match(/\d\d\/\d\d\/\d\d\d\d/)) {
-				alert("Please enter an event date in the format MM/DD/YYYY or select a date from the calendar above.");
-				document.getElementById('event-calendar-date-input').focus();
-			}
-		}
-		
-		var custom_showing = 'custom_<mt:if name="custom_frequency"><mt:var name="custom_frequency"><mt:else>monthly</mt:if>';
-		var days = new Array('su','mo','tu','we','th','fr','sa');
+        // get week of year function
+        Date.prototype.getWeek = function() {
+            var onejan = new Date(this.getFullYear(),0,1);
+            return Math.ceil((((this - onejan) / 86400000) + onejan.getDay()+1)/7);
+        }
+
+        // get the number of days in this month
+        Date.prototype.daysInMonth = function() {
+                return 32 - new Date(this.getFullYear(), this.getMonth(), 32).getDate();
+        }
+
+        function format_for_input(date) {
+            month = date.getMonth()+1;
+            year = date.getFullYear();
+            day = date.getDate();
+
+            if (month < 10) {
+                month = "0" + month;
+            }
+
+            if (day < 10) {
+                day = "0" + day;
+            }
+
+            datestr = month + "/" + day + "/" + year;
+            return datestr;
+        }
+
+        function validateDate(date) {
+            // date must match format MM/DD/YYYY
+            if (!date.match(/\d\d\/\d\d\/\d\d\d\d/)) {
+                alert("Please enter an event date in the format MM/DD/YYYY or select a date from the calendar above.");
+                document.getElementById('event-calendar-date-input').focus();
+            }
+        }
+
+        var custom_showing = 'custom_<mt:if name="custom_frequency"><mt:var name="custom_frequency"><mt:else>monthly</mt:if>';
+        var days = new Array('su','mo','tu','we','th','fr','sa');
         event_calendar = new MT.App.Calendar( "event-calendar", "calendar" );
-		event_calendar.dateObject = new Date(<mt:if name="event_date">'<mt:var name="event_date">'</mt:if>);
-		event_calendar.currentDateObject = event_calendar.dateObject;
-		event_calendar.selectedDateObject<mt:if name="event_date"> = new Date('<mt:var name="event_date">')</mt:if>;
+        event_calendar.dateObject = new Date(<mt:if name="event_date">'<mt:var name="event_date">'</mt:if>);
+        event_calendar.currentDateObject = event_calendar.dateObject;
+        event_calendar.selectedDateObject<mt:if name="event_date"> = new Date('<mt:var name="event_date">')</mt:if>;
 
-		if (document.getElementById('recurrence_end').value == '') {
-			// set recurrence stuff
-			d = new Date(event_calendar.currentDateObject);
-			d.setFullYear(d.getFullYear()+1);
-			document.getElementById('recurrence_end').value = format_for_input(d);
-		}
-		
-    	event_calendar.render();
-		event_calendar.isOpen = true;
-		event_calendar.highlightRecurrence = function ( ) { // a function to highlight recurrences
-			// first clear out any existing recurrences
-			var es = this.contentElement.getElementsByTagName( 'li' );
-			for (x=0;x<es.length;x++) {
-	            if ( es[x] && es[x].className.match('recurrence') )
-	                DOM.removeClassName( es[ x ], "recurrence" );
-			}
-			// quit if we're not highlighted
-			if (!document.getElementById('has_recurrence').checked) {
-				return;
-			}
-			
-			// now figure out what we need to highlight
-			var thisMonth = false;
-			if (this.dateObject.getMonth() == this.selectedDateObject.getMonth() && this.dateObject.getFullYear() == this.selectedDateObject.getFullYear()) {
-				thisMonth = true;
-			}
-		
-			var interval = document.getElementById('recurrence_interval').options[document.getElementById('recurrence_interval').selectedIndex].value;
-			if (interval != 'custom') { // this is a standard weekly/monthly/daily recurrence
-				switch (interval) {
-					case "daily": // we want to highlight every single day
-						var es = this.contentElement.getElementsByTagName( 'li' );
-						for (x=0;x<es.length;x++) {
-							if (thisMonth) {
-								if (es[x].className.match(/day-/) && parseInt(es[x].className.match(/day-(\d+)/)[1]) > this.date()) {
-				                	DOM.addClassName( es[ x ], "recurrence" );
-								}
-							} else if (es[x].className.match(/day-/)) {
-			                	DOM.addClassName( es[ x ], "recurrence" );
-							}
-						}
-						break;
-					case "weekly": // we want to highlight every 7th day
-						var es = this.contentElement.getElementsByTagName( 'li' );
-						for (x=0;x<es.length;x++) {
-							if (es[x].className.match(/day-/)) {
-								test = this.dateObject.clone()
-								test.setDate((parseInt(es[x].className.match(/day-(\d+)/)[1])));
-								if (test.getDay() == this.selectedDateObject.getDay()) {
-									if (thisMonth) {
-										if (parseInt(es[x].className.match(/day-(\d+)/)[1]) > this.date()) {
-					                		DOM.addClassName( es[ x ], "recurrence" );
-										}
-									} else {
-				                		DOM.addClassName( es[ x ], "recurrence" );
-									}
-								}
-							}
-						}
-						break;
-					case "monthly":
-						if (!thisMonth) { // no need to highlight this month obviously
-							var es = this.contentElement.getElementsByTagName( 'li' );
-							for (x=0;x<es.length;x++) {
-								if (es[x].className.match(/day-/) && parseInt(es[x].className.match(/day-(\d+)/)[1]) == this.date()) {
-									DOM.addClassName( es[ x ], "recurrence" );
-								}
-							}
-							
-						}
-						break;
-				} // end switch: interval
-			} else { // we do have a custom thingy
-				var frequency = document.getElementById('custom_frequency').options[document.getElementById('custom_frequency').selectedIndex].value;
-				switch (frequency) {
-					case "daily": // we want to highlight every Nth day
-						var interval = document.getElementById('daily_interval').value;
-						var mod = this.selectedDateObject.getDOY() % interval; // get day of year & interval
-						var es = this.contentElement.getElementsByTagName( 'li' );
-						for (x=0;x<es.length;x++) {
-							if (es[x].className.match(/day-/)) {
-								test = this.dateObject.clone()
-								test.setDate((parseInt(es[x].className.match(/day-(\d+)/)[1])));
-								if (test.getDOY() % interval == mod) {
-									if (thisMonth) {
-										if (parseInt(es[x].className.match(/day-(\d+)/)[1]) > this.date())
-				                			DOM.addClassName( es[ x ], "recurrence" );
-									} else {
-				                		DOM.addClassName( es[ x ], "recurrence" );
-									}
-								}
-							}
-						}
-						break;
-					case "weekly": // we need every Nth week, days X, Y, and Z
-						var interval = document.getElementById('weekly_interval').value;
-						var mod = this.selectedDateObject.getWeek() % interval; // get week of year & interval
-						var es = this.contentElement.getElementsByTagName( 'li' );
-						var day_check = new Object();
-						for (d=0;d<days.length;d++) {
-							if (document.getElementById('weekly-' + days[d]).checked) {
-								day_check[days[d]] = 1;
-							}
-						}
-						for (x=0;x<es.length;x++) {
-							if (es[x].className.match(/day-/)) {
-								test = this.dateObject.clone()
-								test.setDate((parseInt(es[x].className.match(/day-(\d+)/)[1])));
-								if (day_check[days[test.getDay()]] && test.getWeek() % interval == mod) {
-									if (thisMonth) {
-										if (parseInt(es[x].className.match(/day-(\d+)/)[1]) > this.date())
-				                			DOM.addClassName( es[ x ], "recurrence" );
-									} else {
-				                		DOM.addClassName( es[ x ], "recurrence" );
-									}
-								}
-							}
-						}
-						break;
-					case "monthly": // the Nth week day of a particular month
-						var nth = document.getElementById('monthly-interval').value;
-						var weekDay = document.getElementById('monthly-day').selectedIndex;
-						var dayCount = 0;
+        if (document.getElementById('recurrence_end').value == '') {
+            // set recurrence stuff
+            d = new Date(event_calendar.currentDateObject);
+            d.setFullYear(d.getFullYear()+1);
+            document.getElementById('recurrence_end').value = format_for_input(d);
+        }
 
-						var es = this.contentElement.getElementsByTagName( 'li' );
-						for (x=0;x<es.length;x++) {
-							if (es[x].className.match(/day-/)) {
-								test = this.dateObject.clone()
-								test.setDate((parseInt(es[x].className.match(/day-(\d+)/)[1])));
-								if (test.getDay() == weekDay) { // this matches our day of the week
-									dayCount++;
-									if (nth > 0 && dayCount == nth) {
-										if (thisMonth) {
-											if (parseInt(es[x].className.match(/day-(\d+)/)[1]) > this.date()) {
-				                				DOM.addClassName( es[ x ], "recurrence" );
-												break;
-											}
-										} else {
-					                		DOM.addClassName( es[ x ], "recurrence" );
-											break;
-										}
-									} else if (nth == -1) { // we want the last occurrence, which will be in the final week of this month
-										if (parseInt(es[x].className.match(/day-(\d+)/)[1]) > (test.daysInMonth() - 7)) {
-					                		DOM.addClassName( es[ x ], "recurrence" );
-											break;
-										}
-									}
-								}
-							}
-						}
-						break;
-				}
-			}
-			
-			var end = new Date(document.getElementById('recurrence_end').value);
-			var endMonth = false;
-			var endDay = end.getDate();
-			if (end.getMonth() == this.selectedDateObject.getMonth() && end.getFullYear() == this.selectedDateObject.getFullYear()) {
-				endMonth = true;
-			}
-			
-			if (endMonth) { // recurrence ends this month
-				var es = this.contentElement.getElementsByTagName( 'li' );
-				for (x=0;x<es.length;x++) {
-					if (es[x].className.match(/day-/) && es[x].className.match(/day-(\d+)/)[1] > endDay) {
-						DOM.removeClassName( es[ x ], "recurrence" );
-					}
-				}
-			}
-		
-		}
-		event_calendar.eventClick = function( event ) { /* overriding this function */
-	        if( !this.isOpen ) // This keeps unopened calendars from hearing the event and breaking (Case 33303).
-	            return; 
-	        var command = this.getMouseEventCommand( event );
-	        if ( !command )
-	            return;
+        event_calendar.render();
+        event_calendar.isOpen = true;
+        event_calendar.highlightRecurrence = function ( ) { // a function to highlight recurrences
+            // first clear out any existing recurrences
+            var es = this.contentElement.getElementsByTagName( 'li' );
+            for (x=0;x<es.length;x++) {
+                if ( es[x] && es[x].className.match('recurrence') )
+                    DOM.removeClassName( es[ x ], "recurrence" );
+            }
+            // quit if we're not highlighted
+            if (!document.getElementById('has_recurrence').checked) {
+                return;
+            }
 
-	        event.stop();
+            // now figure out what we need to highlight
+            var thisMonth = false;
+            if (this.dateObject.getMonth() == this.selectedDateObject.getMonth() && this.dateObject.getFullYear() == this.selectedDateObject.getFullYear()) {
+                thisMonth = true;
+            }
 
-	        var m;
-	        var day;
-	        if ( m = command.match( /setDay-(\d+)/ ) ) {
-	            day = m[ 1 ];
-	            command = 'setDay';
-	        }
+            var interval = document.getElementById('recurrence_interval').options[document.getElementById('recurrence_interval').selectedIndex].value;
+            if (interval != 'custom') { // this is a standard weekly/monthly/daily recurrence
+                switch (interval) {
+                    case "daily": // we want to highlight every single day
+                        var es = this.contentElement.getElementsByTagName( 'li' );
+                        for (x=0;x<es.length;x++) {
+                            if (thisMonth) {
+                                if (es[x].className.match(/day-/) && parseInt(es[x].className.match(/day-(\d+)/)[1]) > this.date()) {
+                                    DOM.addClassName( es[ x ], "recurrence" );
+                                }
+                            } else if (es[x].className.match(/day-/)) {
+                                DOM.addClassName( es[ x ], "recurrence" );
+                            }
+                        }
+                        break;
+                    case "weekly": // we want to highlight every 7th day
+                        var es = this.contentElement.getElementsByTagName( 'li' );
+                        for (x=0;x<es.length;x++) {
+                            if (es[x].className.match(/day-/)) {
+                                test = this.dateObject.clone()
+                                test.setDate((parseInt(es[x].className.match(/day-(\d+)/)[1])));
+                                if (test.getDay() == this.selectedDateObject.getDay()) {
+                                    if (thisMonth) {
+                                        if (parseInt(es[x].className.match(/day-(\d+)/)[1]) > this.date()) {
+                                            DOM.addClassName( es[ x ], "recurrence" );
+                                        }
+                                    } else {
+                                        DOM.addClassName( es[ x ], "recurrence" );
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case "monthly":
+                        if (!thisMonth) { // no need to highlight this month obviously
+                            var es = this.contentElement.getElementsByTagName( 'li' );
+                            for (x=0;x<es.length;x++) {
+                                if (es[x].className.match(/day-/) && parseInt(es[x].className.match(/day-(\d+)/)[1]) == this.date()) {
+                                    DOM.addClassName( es[ x ], "recurrence" );
+                                }
+                            }
 
-	        switch( command ) {
+                        }
+                        break;
+                } // end switch: interval
+            } else { // we do have a custom thingy
+                var frequency = document.getElementById('custom_frequency').options[document.getElementById('custom_frequency').selectedIndex].value;
+                switch (frequency) {
+                    case "daily": // we want to highlight every Nth day
+                        var interval = document.getElementById('daily_interval').value;
+                        var mod = this.selectedDateObject.getDOY() % interval; // get day of year & interval
+                        var es = this.contentElement.getElementsByTagName( 'li' );
+                        for (x=0;x<es.length;x++) {
+                            if (es[x].className.match(/day-/)) {
+                                test = this.dateObject.clone()
+                                test.setDate((parseInt(es[x].className.match(/day-(\d+)/)[1])));
+                                if (test.getDOY() % interval == mod) {
+                                    if (thisMonth) {
+                                        if (parseInt(es[x].className.match(/day-(\d+)/)[1]) > this.date())
+                                            DOM.addClassName( es[ x ], "recurrence" );
+                                    } else {
+                                        DOM.addClassName( es[ x ], "recurrence" );
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case "weekly": // we need every Nth week, days X, Y, and Z
+                        var interval = document.getElementById('weekly_interval').value;
+                        var mod = this.selectedDateObject.getWeek() % interval; // get week of year & interval
+                        var es = this.contentElement.getElementsByTagName( 'li' );
+                        var day_check = new Object();
+                        for (d=0;d<days.length;d++) {
+                            if (document.getElementById('weekly-' + days[d]).checked) {
+                                day_check[days[d]] = 1;
+                            }
+                        }
+                        for (x=0;x<es.length;x++) {
+                            if (es[x].className.match(/day-/)) {
+                                test = this.dateObject.clone()
+                                test.setDate((parseInt(es[x].className.match(/day-(\d+)/)[1])));
+                                if (day_check[days[test.getDay()]] && test.getWeek() % interval == mod) {
+                                    if (thisMonth) {
+                                        if (parseInt(es[x].className.match(/day-(\d+)/)[1]) > this.date())
+                                            DOM.addClassName( es[ x ], "recurrence" );
+                                    } else {
+                                        DOM.addClassName( es[ x ], "recurrence" );
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case "monthly": // the Nth week day of a particular month
+                        var nth = document.getElementById('monthly-interval').value;
+                        var weekDay = document.getElementById('monthly-day').selectedIndex;
+                        var dayCount = 0;
 
-	            case "nextMonth":
-	                this.nextMonth();
-	                this.render();
-					this.highlightRecurrence();
-	                break;
+                        var es = this.contentElement.getElementsByTagName( 'li' );
+                        for (x=0;x<es.length;x++) {
+                            if (es[x].className.match(/day-/)) {
+                                test = this.dateObject.clone()
+                                test.setDate((parseInt(es[x].className.match(/day-(\d+)/)[1])));
+                                if (test.getDay() == weekDay) { // this matches our day of the week
+                                    dayCount++;
+                                    if (nth > 0 && dayCount == nth) {
+                                        if (thisMonth) {
+                                            if (parseInt(es[x].className.match(/day-(\d+)/)[1]) > this.date()) {
+                                                DOM.addClassName( es[ x ], "recurrence" );
+                                                break;
+                                            }
+                                        } else {
+                                            DOM.addClassName( es[ x ], "recurrence" );
+                                            break;
+                                        }
+                                    } else if (nth == -1) { // we want the last occurrence, which will be in the final week of this month
+                                        if (parseInt(es[x].className.match(/day-(\d+)/)[1]) > (test.daysInMonth() - 7)) {
+                                            DOM.addClassName( es[ x ], "recurrence" );
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                }
+            }
 
-	            case "prevMonth":
-	                this.prevMonth();
-	                this.render();
-					this.highlightRecurrence();
-	                break;
+            var end = new Date(document.getElementById('recurrence_end').value);
+            var endMonth = false;
+            var endDay = end.getDate();
+            if (end.getMonth() == this.selectedDateObject.getMonth() && end.getFullYear() == this.selectedDateObject.getFullYear()) {
+                endMonth = true;
+            }
 
-	            case "cancel":
-	                this.close();
-	                break;
+            if (endMonth) { // recurrence ends this month
+                var es = this.contentElement.getElementsByTagName( 'li' );
+                for (x=0;x<es.length;x++) {
+                    if (es[x].className.match(/day-/) && es[x].className.match(/day-(\d+)/)[1] > endDay) {
+                        DOM.removeClassName( es[ x ], "recurrence" );
+                    }
+                }
+            }
 
-	            case "save":
-	                this.checkTimeInput();
-	                this.close( true );
-	                break;
+        }
+        event_calendar.eventClick = function( event ) { /* overriding this function */
+            if( !this.isOpen ) // This keeps unopened calendars from hearing the event and breaking (Case 33303).
+                return;
+            var command = this.getMouseEventCommand( event );
+            if ( !command )
+                return;
 
-	            case "setDay":
-	                var resetTime = false;
-	                if ( this.disallowFuture ) {
-	                    var dt = this.dateObject.clone();
-	                    dt.setDate( day );
-	                    /* detect if they are selecting a future date,
-	                     * and reset the time
-	                     */
-	                    if ( dt > this.currentDateObject ) {
-	                        dt.setSeconds( 1 );
-	                        dt.setHours( 0 );
-	                        dt.setMinutes( 0 );
-	                        if ( dt > this.currentDateObject )
-	                            break;
-	                        else
-	                            resetTime = true;
-	                    }
-	                }
-	                var d = this.date();
+            event.stop();
 
-	                /* no nothing when clicking the same day */
-	                if ( d == day )
-	                    break;
-	                this.date( day );
+            var m;
+            var day;
+            if ( m = command.match( /setDay-(\d+)/ ) ) {
+                day = m[ 1 ];
+                command = 'setDay';
+            }
 
-	                var es = DOM.getElementsByClassName( this.contentElement, "day-" + d );
-	                if ( es && es[ 0 ] )
-	                    DOM.removeClassName( es[ 0 ], "selected" );
+            switch( command ) {
 
-	                es = DOM.getElementsByClassName( this.contentElement, "day-" + day );
-	                if ( es && es[ 0 ] )
-	                    DOM.addClassName( es[ 0 ], "selected" );
+                case "nextMonth":
+                    this.nextMonth();
+                    this.render();
+                    this.highlightRecurrence();
+                    break;
 
-	                if ( resetTime ) {
-	                    var d = new Date();
-	                    var hours = d.getHours().toString().pad( 2, "0" );
-	                    var minutes = d.getMinutes().toString().pad( 2, "0" );
-	                    var seconds = d.getSeconds().toString().pad( 2, "0" );
-	                    this.timeElement.value = hours + ":" + minutes + ":" + seconds;
-	                    this.time( this.timeElement.value );
-	                }
-					document.getElementById('event-calendar-date-input').value = format_for_input(this.dateObject);
-					document.getElementById('event-date-visible').innerHTML = format_for_input(this.dateObject);
-					this.selectedDateObject = this.dateObject.clone();
-					// if we're changing the day, update the recurrence bits
-					if (document.getElementById('has_recurrence').checked) {
-						this.highlightRecurrence();
-					}
-					// enable recurrence stuff
-					document.getElementById('has_recurrence').disabled = false;
-					if (document.getElementById('recurrence_end').value == '') {
-						d = new Date(event_calendar.dateObject);
-						d.setFullYear(d.getFullYear()+1);
-						document.getElementById('recurrence_end').value = format_for_input(d);
-					}
-					// set the day/week for our monthly custom recurrence
-					document.getElementById('monthly-interval').selectedIndex = Math.floor((this.dateObject.getDate()-1) / 7);
+                case "prevMonth":
+                    this.prevMonth();
+                    this.render();
+                    this.highlightRecurrence();
+                    break;
 
-					// set the week for our weekly custom recurrence
-					// set the week for our weekly custom recurrence
-					for (var d=0;d<days.length;d++) {
-						if (this.dateObject.getDay() == d) {
-							document.getElementById('monthly-day').selectedIndex = d;
-							document.getElementById('weekly-' + days[d]).checked = true;	
-						} else {
-							if (document.getElementById('custom_frequency').options[document.getElementById('custom_frequency').selectedIndex].value != 'weekly') {
-								document.getElementById('weekly-' + days[d]).checked = false;
-							}
-						}
-					}
-	                break;
-	        }
-	    }
-		TC.attachLoadEvent( event_calendar.highlightRecurrence() );
-		</script>
+                case "cancel":
+                    this.close();
+                    break;
+
+                case "save":
+                    this.checkTimeInput();
+                    this.close( true );
+                    break;
+
+                case "setDay":
+                    var resetTime = false;
+                    if ( this.disallowFuture ) {
+                        var dt = this.dateObject.clone();
+                        dt.setDate( day );
+                        /* detect if they are selecting a future date,
+                         * and reset the time
+                         */
+                        if ( dt > this.currentDateObject ) {
+                            dt.setSeconds( 1 );
+                            dt.setHours( 0 );
+                            dt.setMinutes( 0 );
+                            if ( dt > this.currentDateObject )
+                                break;
+                            else
+                                resetTime = true;
+                        }
+                    }
+                    var d = this.date();
+
+                    /* no nothing when clicking the same day */
+                    if ( d == day )
+                        break;
+                    this.date( day );
+
+                    var es = DOM.getElementsByClassName( this.contentElement, "day-" + d );
+                    if ( es && es[ 0 ] )
+                        DOM.removeClassName( es[ 0 ], "selected" );
+
+                    es = DOM.getElementsByClassName( this.contentElement, "day-" + day );
+                    if ( es && es[ 0 ] )
+                        DOM.addClassName( es[ 0 ], "selected" );
+
+                    if ( resetTime ) {
+                        var d = new Date();
+                        var hours = d.getHours().toString().pad( 2, "0" );
+                        var minutes = d.getMinutes().toString().pad( 2, "0" );
+                        var seconds = d.getSeconds().toString().pad( 2, "0" );
+                        this.timeElement.value = hours + ":" + minutes + ":" + seconds;
+                        this.time( this.timeElement.value );
+                    }
+                    document.getElementById('event-calendar-date-input').value = format_for_input(this.dateObject);
+                    document.getElementById('event-date-visible').innerHTML = format_for_input(this.dateObject);
+                    this.selectedDateObject = this.dateObject.clone();
+                    // if we're changing the day, update the recurrence bits
+                    if (document.getElementById('has_recurrence').checked) {
+                        this.highlightRecurrence();
+                    }
+                    // enable recurrence stuff
+                    document.getElementById('has_recurrence').disabled = false;
+                    if (document.getElementById('recurrence_end').value == '') {
+                        d = new Date(event_calendar.dateObject);
+                        d.setFullYear(d.getFullYear()+1);
+                        document.getElementById('recurrence_end').value = format_for_input(d);
+                    }
+                    // set the day/week for our monthly custom recurrence
+                    document.getElementById('monthly-interval').selectedIndex = Math.floor((this.dateObject.getDate()-1) / 7);
+
+                    // set the week for our weekly custom recurrence
+                    // set the week for our weekly custom recurrence
+                    for (var d=0;d<days.length;d++) {
+                        if (this.dateObject.getDay() == d) {
+                            document.getElementById('monthly-day').selectedIndex = d;
+                            document.getElementById('weekly-' + days[d]).checked = true;
+                        } else {
+                            if (document.getElementById('custom_frequency').options[document.getElementById('custom_frequency').selectedIndex].value != 'weekly') {
+                                document.getElementById('weekly-' + days[d]).checked = false;
+                            }
+                        }
+                    }
+                    break;
+            }
+        }
+        TC.attachLoadEvent( event_calendar.highlightRecurrence() );
+        </script>
 
 
-	</mtapp:widget>
+    </mtapp:widget>
 </div>
