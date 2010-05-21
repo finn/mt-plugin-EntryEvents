@@ -78,3 +78,8 @@ An example template using the above tags to display 7 days' worth of events and 
 		<li><mt:EntryTitle> -- on <mt:EventDate></li>
 	</mt:Events>
 	</ul>
+
+
+### Technical Stuff
+
+Each event lives in a separate mt_entryevent table tied to the entries via an entryevent_entry_id link. That means that every event is a one-to-one relationship with an entry which means that future recurrences of an event will end up having the same comments. If you end up wanting events that have different comments from occurrence to occurrence, I would recommend creating new entries for each one.
